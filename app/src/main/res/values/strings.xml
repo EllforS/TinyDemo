@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Test_Demo</string>
+
+    <string name="overridepending_transition_duration">200</string>
+</resources>
