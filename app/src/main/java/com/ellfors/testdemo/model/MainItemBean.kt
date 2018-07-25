@@ -4,6 +4,7 @@ class MainItemBean(val id: ID, val text: String)
 {
     enum class ID
     {
-        DOUBLE_SLIDE
+        DOUBLE_SLIDE,
+        RIGHT_GRID
     }
 }

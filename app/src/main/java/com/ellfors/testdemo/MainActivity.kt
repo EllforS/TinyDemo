@@ -3,7 +3,8 @@ package com.ellfors.testdemo
 import android.support.v7.widget.LinearLayoutManager
 import com.ellfors.testdemo.base.BaseActivity
 import com.ellfors.testdemo.base.recyclerview.BaseRecyclerData
-import com.ellfors.testdemo.biz.certificate.DoubleSlideActivity
+import com.ellfors.testdemo.biz.medal.DoubleSlideActivity
+import com.ellfors.testdemo.biz.right_grid.RightGridActivity
 import com.ellfors.testdemo.model.MainItemBean
 import com.ellfors.testdemo.util.ViewUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,6 +33,7 @@ class MainActivity : BaseActivity()
             when ((bean.data as MainItemBean).id)
             {
                 MainItemBean.ID.DOUBLE_SLIDE -> DoubleSlideActivity.start(this@MainActivity)
+                MainItemBean.ID.RIGHT_GRID -> RightGridActivity.start(this@MainActivity)
             }
         }
     }
@@ -40,6 +42,7 @@ class MainActivity : BaseActivity()
     {
         val list: MutableList<BaseRecyclerData> = mutableListOf()
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.DOUBLE_SLIDE, "我的证书Demo")))
+        list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.RIGHT_GRID, "从右至左GridLayoutManager")))
         return list
     }
 

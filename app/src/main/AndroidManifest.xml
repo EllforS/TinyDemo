@@ -19,8 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".biz.certificate.DoubleSlideActivity" />
-
+        <activity android:name=".biz.medal.DoubleSlideActivity" />
+        <activity android:name=".biz.right_grid.RightGridActivity" />
     </application>
 
 </manifest>

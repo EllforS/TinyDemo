@@ -1,4 +1,4 @@
-package com.ellfors.testdemo.biz.certificate
+package com.ellfors.testdemo.biz.medal
 
 import android.annotation.SuppressLint
 import com.ellfors.testdemo.R

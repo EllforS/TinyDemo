@@ -1,16 +1,14 @@
-package com.ellfors.testdemo.biz.certificate
+package com.ellfors.testdemo.biz.medal
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
-import android.support.annotation.RequiresApi
 import android.support.v4.view.ViewPager
 import android.widget.RelativeLayout
 import butterknife.BindView
 import com.ellfors.testdemo.R
 import com.ellfors.testdemo.app.MyApp
 import com.ellfors.testdemo.base.BaseActivity
-import com.ellfors.testdemo.biz.certificate.adapter.DSVpAdapter
+import com.ellfors.testdemo.biz.medal.adapter.DSVpAdapter
 import com.ellfors.testdemo.event.DSTitleSelected
 import com.ellfors.testdemo.util.ViewUtil
 
@@ -42,7 +40,6 @@ class DoubleSlideActivity : BaseActivity()
         return R.layout.activity_doubleslide
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun initEventAndData()
     {
         initTitle()
@@ -70,7 +67,8 @@ class DoubleSlideActivity : BaseActivity()
 
                     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int)
                     {
-                        if (vp_content.currentItem != position && titleIsTouching) vp_content.currentItem = position
+                        if (vp_content.currentItem != position && titleIsTouching)
+                            vp_content.currentItem = position
                     }
 
                     override fun onPageSelected(position: Int)
@@ -101,7 +99,8 @@ class DoubleSlideActivity : BaseActivity()
 
                     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int)
                     {
-                        if (vp_title.currentItem != position && !titleIsTouching) vp_title.currentItem = position
+                        if (vp_title.currentItem != position && !titleIsTouching)
+                            vp_title.currentItem = position
                     }
 
                     override fun onPageSelected(position: Int)

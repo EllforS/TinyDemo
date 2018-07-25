@@ -15,20 +15,20 @@ class MainAdapter(mContext: Context, items: MutableList<BaseRecyclerData>) : Bas
     override fun onCreate(parent: ViewGroup?, viewType: Int): BaseRecyclerViewHolder
     {
         val itemHolder = ItemViewHolder(getItemView(R.layout.item_main, parent), this)
-        itemHolder.setOnClickListener(itemHolder.tv_main)
+        itemHolder.setOnClickListener(itemHolder.tvMain)
         return itemHolder
     }
 
     override fun onBind(holder: BaseRecyclerViewHolder?, position: Int)
     {
-        val bean = items.get(position).data as MainItemBean
+        val bean = items[position].data as MainItemBean
         val itemHolder = holder as ItemViewHolder
-        itemHolder.tv_main.text = bean.text
+        itemHolder.tvMain.text = bean.text
     }
 
     class ItemViewHolder(itemView: View, adapter: BaseRecyclerAdapter) : BaseRecyclerViewHolder(itemView, adapter)
     {
         @BindView(R.id.item_tv_main)
-        lateinit var tv_main: TextView
+        lateinit var tvMain: TextView
     }
 }
