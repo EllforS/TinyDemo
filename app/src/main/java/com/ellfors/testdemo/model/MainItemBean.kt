@@ -5,6 +5,7 @@ class MainItemBean(val id: ID, val text: String)
     enum class ID
     {
         DOUBLE_SLIDE,
-        RIGHT_GRID
+        RIGHT_GRID,
+        REFRESH
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.support.multidex.MultiDex;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,6 +36,8 @@ public class MyApp extends Application
     {
         mApp = this;
         stack = new Stack<>();
+        //初始化分包
+        MultiDex.install(this);
     }
 
     /*
