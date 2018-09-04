@@ -4,7 +4,19 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
+
+import com.ellfors.testdemo.R;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshInitializer;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -38,6 +50,76 @@ public class MyApp extends Application
         stack = new Stack<>();
         //初始化分包
         MultiDex.install(this);
+        initRefresh();
+    }
+
+    /**
+     * 初始化刷新加载控件
+     */
+    private void initRefresh()
+    {
+        //设置刷新文字
+        ClassicsHeader.REFRESH_HEADER_PULLING = getString(R.string.refresh_header_pulling);
+        ClassicsHeader.REFRESH_HEADER_REFRESHING = getString(R.string.refresh_header_refreshing);
+        ClassicsHeader.REFRESH_HEADER_LOADING = getString(R.string.refresh_header_loading);
+        ClassicsHeader.REFRESH_HEADER_RELEASE = getString(R.string.refresh_header_release);
+        ClassicsHeader.REFRESH_HEADER_FINISH = getString(R.string.refresh_header_finish);
+        ClassicsHeader.REFRESH_HEADER_FAILED = getString(R.string.refresh_header_failed);
+        //设置加载文字
+        ClassicsFooter.REFRESH_FOOTER_PULLING = getString(R.string.refresh_footer_pulling);
+        ClassicsFooter.REFRESH_FOOTER_RELEASE = getString(R.string.refresh_footer_release);
+        ClassicsFooter.REFRESH_FOOTER_LOADING = getString(R.string.refresh_footer_loading);
+        ClassicsFooter.REFRESH_FOOTER_REFRESHING = getString(R.string.refresh_footer_refreshing);
+        ClassicsFooter.REFRESH_FOOTER_FINISH = getString(R.string.refresh_footer_finish);
+        ClassicsFooter.REFRESH_FOOTER_FAILED = getString(R.string.refresh_footer_failed);
+        ClassicsFooter.REFRESH_FOOTER_NOTHING = getString(R.string.refresh_footer_nothing);
+        //全局属性设置
+        SmartRefreshLayout.setDefaultRefreshInitializer(new DefaultRefreshInitializer()
+        {
+            @Override
+            public void initialize(@NonNull Context context, @NonNull RefreshLayout layout)
+            {
+                //是否在刷新/加载的时候禁止列表的操作
+                layout.setDisableContentWhenRefresh(true);
+                layout.setDisableContentWhenLoading(true);
+                //Header、Footer高度
+                layout.setHeaderHeight(57);
+                layout.setFooterHeight(57);
+            }
+        });
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator()
+        {
+            @NonNull
+            @Override
+            public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout)
+            {
+                return new ClassicsHeader(context)
+                        .setEnableLastTime(false)
+                        .setTextSizeTitle(12)
+                        .setDrawableMarginRight(7)
+                        .setFinishDuration(0)
+                        .setAccentColor(getResources().getColor(R.color.tra_black_20))
+                        .setArrowDrawable(getResources().getDrawable(R.drawable.ptr_head_pull_ic))
+                        .setProgressDrawable(getResources().getDrawable(R.drawable.load_img_loading));
+            }
+        });
+        //设置全局Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator()
+        {
+            @NonNull
+            @Override
+            public RefreshFooter createRefreshFooter(@NonNull Context context, @NonNull RefreshLayout layout)
+            {
+                return new ClassicsFooter(context)
+                        .setTextSizeTitle(12)
+                        .setDrawableMarginRight(7)
+                        .setFinishDuration(0)
+                        .setAccentColor(getResources().getColor(R.color.tra_black_20))
+                        .setArrowDrawable(getResources().getDrawable(R.drawable.ptr_head_pull_ic))
+                        .setProgressDrawable(getResources().getDrawable(R.drawable.load_img_loading));
+            }
+        });
     }
 
     /*
