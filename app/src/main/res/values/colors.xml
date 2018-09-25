@@ -12,4 +12,5 @@
     <color name="black">#000000</color>
     <color name="color_333333">#333333</color>
     <color name="common_bg_color">#DDDDDD</color>
+    <color name="color_ff6633">#ff6633</color>
 </resources>

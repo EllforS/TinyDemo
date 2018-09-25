@@ -5,7 +5,7 @@ import android.graphics.Typeface
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import com.ellfors.testdemo.R
-import com.ellfors.testdemo.app.MyApp
+import com.ellfors.testdemo.app.MyAppLike
 import com.ellfors.testdemo.base.BaseFragment
 import com.ellfors.testdemo.event.DSTitleSelected
 import kotlinx.android.synthetic.main.fragment_ds_title.*
@@ -24,7 +24,7 @@ class DSTitleFragment : BaseFragment()
     @SuppressLint("SetTextI18n")
     override fun initEventAndData()
     {
-        MyApp.eventRegister(this@DSTitleFragment)
+        MyAppLike.eventRegister(this@DSTitleFragment)
 
         pos = arguments!!.getInt("pos")
         tv_title.text = "标题${pos + 1}"
@@ -35,7 +35,7 @@ class DSTitleFragment : BaseFragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
-        MyApp.eventUnRegister(this@DSTitleFragment)
+        MyAppLike.eventUnRegister(this@DSTitleFragment)
     }
 
     private fun selectPos(position: Int)

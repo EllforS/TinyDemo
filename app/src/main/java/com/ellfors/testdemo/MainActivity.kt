@@ -6,12 +6,18 @@ import com.ellfors.testdemo.base.recyclerview.BaseRecyclerData
 import com.ellfors.testdemo.biz.medal.DoubleSlideActivity
 import com.ellfors.testdemo.biz.refresh.RefreshActivity
 import com.ellfors.testdemo.biz.right_grid.RightGridActivity
+import com.ellfors.testdemo.biz.statusbar.StatusBarActivity
+import com.ellfors.testdemo.biz.tinker.TinkerActivity
 import com.ellfors.testdemo.model.MainItemBean
+import com.ellfors.testdemo.permission.PermissionManager
 import com.ellfors.testdemo.util.ViewUtil
+import com.yanzhenjie.permission.Permission
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity()
 {
+    private val permissions = arrayOf(Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE, Permission.READ_PHONE_STATE, Permission.CALL_PHONE, Permission.CAMERA, Permission.ACCESS_COARSE_LOCATION, Permission.ACCESS_FINE_LOCATION)
+
     override fun getLayout(): Int
     {
         return R.layout.activity_main
@@ -21,6 +27,21 @@ class MainActivity : BaseActivity()
     {
         ViewUtil.setDensityWH(this)
         initRecyclerView()
+
+        PermissionManager(this@MainActivity)
+                .addRationale()
+                .addPermission(permissions)
+                .addListener(
+                        object : PermissionManager.OnPermissionListener
+                        {
+                            override fun onSuccess(permissions: MutableList<String>?)
+                            {
+                            }
+
+                            override fun onFailed(permissions: MutableList<String>?)
+                            {
+                            }
+                        }, true)
     }
 
     private fun initRecyclerView()
@@ -36,6 +57,8 @@ class MainActivity : BaseActivity()
                 MainItemBean.ID.DOUBLE_SLIDE -> DoubleSlideActivity.start(this@MainActivity)
                 MainItemBean.ID.RIGHT_GRID -> RightGridActivity.start(this@MainActivity)
                 MainItemBean.ID.REFRESH -> RefreshActivity.start(this@MainActivity)
+                MainItemBean.ID.STATUS_BAR -> StatusBarActivity.start(this@MainActivity)
+                MainItemBean.ID.TINKER -> TinkerActivity.start(this@MainActivity)
             }
         }
     }
@@ -46,6 +69,8 @@ class MainActivity : BaseActivity()
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.DOUBLE_SLIDE, "我的证书Demo")))
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.RIGHT_GRID, "从右至左GridLayoutManager")))
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.REFRESH, "刷新")))
+        list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.STATUS_BAR, "状态栏")))
+        list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.TINKER, "热修复")))
         return list
     }
 

@@ -27,14 +27,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ellfors.testdemo.app.MyApp;
+import com.ellfors.testdemo.app.MyAppLike;
 import com.ellfors.testdemo.widget.FixedSpeedScroller;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -110,29 +108,9 @@ public class ViewUtil
         // 得到屏幕密度
         DisplayMetrics dm = new DisplayMetrics();
         mContext.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        MyApp.density = dm.density;// 像素密度
-        MyApp.width = dm.widthPixels; // 像素：宽
-        MyApp.height = dm.heightPixels; // 像素：高
-    }
-
-    /**
-     * 显示软键盘
-     */
-    public static void showKeybord(final EditText editText)
-    {
-        editText.setFocusable(true);
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask()
-        {
-            public void run()
-            {
-                InputMethodManager inputManager = (InputMethodManager) MyApp.getInstance().getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (inputManager != null)
-                    inputManager.showSoftInput(editText, 0);
-            }
-        }, 500);
+        MyAppLike.density = dm.density;// 像素密度
+        MyAppLike.width = dm.widthPixels; // 像素：宽
+        MyAppLike.height = dm.heightPixels; // 像素：高
     }
 
     /**
@@ -274,7 +252,7 @@ public class ViewUtil
         {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
-        result += MyApp.density * actionBarHeight;
+        result += MyAppLike.density * actionBarHeight;
         return result;
     }
 
@@ -450,6 +428,14 @@ public class ViewUtil
     {
         int state = currentNetwork(context);
         return state < 2;
+    }
+
+    /**
+     * 获取App安装地址
+     */
+    public static String getMyAppPath()
+    {
+        return Environment.getExternalStorageDirectory() + "/Download/MyTinkerApp.apk";
     }
 
     /**

@@ -14,7 +14,7 @@ import android.text.style.SubscriptSpan;
 import android.text.style.SuperscriptSpan;
 import android.text.style.UnderlineSpan;
 
-import com.ellfors.testdemo.app.MyApp;
+import com.ellfors.testdemo.app.MyAppLike;
 
 /**
  * 字体改变工具类
@@ -68,7 +68,7 @@ public class SpannableStringUtil
     {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(str);
-        AbsoluteSizeSpan span = new AbsoluteSizeSpan((int) (size * MyApp.density));
+        AbsoluteSizeSpan span = new AbsoluteSizeSpan((int) (size * MyAppLike.density));
         builder.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         return builder;
     }
@@ -84,9 +84,9 @@ public class SpannableStringUtil
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(str);
         AbsoluteSizeSpan span;
-        span = new AbsoluteSizeSpan((int) (size * MyApp.density));
+        span = new AbsoluteSizeSpan((int) (size * MyAppLike.density));
         builder.setSpan(span, 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        span = new AbsoluteSizeSpan((int) (size * MyApp.density));
+        span = new AbsoluteSizeSpan((int) (size * MyAppLike.density));
         builder.setSpan(span, str.length() - 3, str.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         return builder;
     }
@@ -103,9 +103,9 @@ public class SpannableStringUtil
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(str);
         AbsoluteSizeSpan span;
-        span = new AbsoluteSizeSpan((int) (size * MyApp.density));
+        span = new AbsoluteSizeSpan((int) (size * MyAppLike.density));
         builder.setSpan(span, start, start + 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        span = new AbsoluteSizeSpan((int) (size * MyApp.density));
+        span = new AbsoluteSizeSpan((int) (size * MyAppLike.density));
         builder.setSpan(span, str.length() - 3, str.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         return builder;
     }
@@ -175,7 +175,7 @@ public class SpannableStringUtil
         //调整字体大小
         if (topSize != null)
         {
-            AbsoluteSizeSpan size = new AbsoluteSizeSpan((int) (topSize * MyApp.density));
+            AbsoluteSizeSpan size = new AbsoluteSizeSpan((int) (topSize * MyAppLike.density));
             builder.setSpan(size, start, end, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         }
         return builder;
@@ -198,7 +198,7 @@ public class SpannableStringUtil
         //调整字体大小
         if (bottomSize != null)
         {
-            AbsoluteSizeSpan size = new AbsoluteSizeSpan((int) (bottomSize * MyApp.density));
+            AbsoluteSizeSpan size = new AbsoluteSizeSpan((int) (bottomSize * MyAppLike.density));
             builder.setSpan(size, start, end, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         }
         return builder;

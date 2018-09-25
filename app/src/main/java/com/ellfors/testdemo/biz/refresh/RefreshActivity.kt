@@ -12,6 +12,8 @@ import com.ellfors.testdemo.base.BaseActivity
 import com.ellfors.testdemo.base.recyclerview.BaseRecyclerData
 import com.ellfors.testdemo.util.ListUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 
 /**
  * RefreshActivity
@@ -53,17 +55,16 @@ class RefreshActivity : BaseActivity()
     {
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mAdapter = RefreshAdapter(this, ListUtil.getData(list))
-        mAdapter.setOnItemClickListener(
-                { view: View, _: Int, bean: BaseRecyclerData ->
-                    when (view.id)
-                    {
-                        R.id.tv_refresh ->
-                        {
-                            if (bean.data is String)
-                                Toast.makeText(this@RefreshActivity, bean.data as String, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
+        mAdapter.setOnItemClickListener { view: View, _: Int, bean: BaseRecyclerData ->
+            when (view.id)
+            {
+                R.id.tv_refresh ->
+                {
+                    if (bean.data is String)
+                        Toast.makeText(this@RefreshActivity, bean.data as String, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
         mRecyclerView.adapter = mAdapter
     }
 
@@ -76,24 +77,31 @@ class RefreshActivity : BaseActivity()
         //控制是否可以刷新/加载
 //        mRefreshLayout.setEnableRefresh(false)
 //        mRefreshLayout.setEnableLoadMore(false)
-        //刷新
-        mRefreshLayout.setOnRefreshListener {
-            Handler().postDelayed(
+        mRefreshLayout.setOnRefreshLoadMoreListener(
+                object : OnRefreshLoadMoreListener
+                {
+                    override fun onRefresh(refreshLayout: RefreshLayout)
                     {
-                        list = getResetData(20)
-                        mAdapter.setData(ListUtil.getData(list))
-                        mRefreshLayout.finishRefresh()
-                    }, 2000)
-        }
-        //加载
-        mRefreshLayout.setOnLoadMoreListener {
-            Handler().postDelayed(
+                        //刷新
+                        Handler().postDelayed(
+                                {
+                                    list = getResetData(20)
+                                    mAdapter.setData(ListUtil.getData(list))
+                                    mRefreshLayout.finishRefresh()
+                                }, 1000)
+                    }
+
+                    override fun onLoadMore(refreshLayout: RefreshLayout)
                     {
-                        mAdapter.addData(ListUtil.getData(getLoadData()))
-//                        mRefreshLayout.finishLoadMore()
-                        mRefreshLayout.finishLoadMoreWithNoMoreData()
-                    }, 2000)
-        }
+                        //加载
+                        Handler().postDelayed(
+                                {
+                                    mAdapter.addData(ListUtil.getData(getLoadData()))
+//                                    mRefreshLayout.finishLoadMore()
+                                    mRefreshLayout.finishLoadMoreWithNoMoreData()
+                                }, 1000)
+                    }
+                })
     }
 
     private fun getResetData(size: Int): MutableList<String>

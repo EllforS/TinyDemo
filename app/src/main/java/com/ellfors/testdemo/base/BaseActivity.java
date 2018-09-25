@@ -10,11 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 import com.ellfors.testdemo.R;
-import com.ellfors.testdemo.app.MyApp;
+import com.ellfors.testdemo.app.MyAppLike;
 import com.ellfors.testdemo.ext.ImageExt;
 import com.ellfors.testdemo.ext.ValueExt;
-import com.ellfors.testdemo.util.StatusBarUtil;
 import com.ellfors.testdemo.util.ViewUtil;
+import com.gyf.barlibrary.ImmersionBar;
 
 import java.util.ArrayList;
 
@@ -24,14 +24,21 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends AppCompatActivity implements ImageExt, ValueExt
 {
     public static final int LAYOUT_ID_NOT_FOUND = 0;
-    private static final float DEFALUT_STATUS_BAR_ALPHA = 0f;
+    private static final int DEFAULT_STATUSBAR_COLOR = R.color.colorPrimary;
+    private static final float DEFALUT_STATUS_BAR_ALPHA = 1f;
+    private static final int FLYME_STATUSBAR_FONT_COLOR = R.color.color_333333;
 
     private FragmentFactory mFragmentFactory;
     private ArrayList<Fragment> mList = new ArrayList<>();
     public Context mContext;
     private Unbinder unbinder;
-    private boolean isShowStatusBarColor = true;    //状态栏是否透明展示
     public Bundle mSavedInstanceState;
+
+    private ImmersionBar immersionBar;
+    private boolean showStatusBar = true;
+    private int mStatusBarColor = DEFAULT_STATUSBAR_COLOR;
+    private float mStatusBarAlpha = DEFALUT_STATUS_BAR_ALPHA;
+    private boolean isDarkFont = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,20 +48,65 @@ public abstract class BaseActivity extends AppCompatActivity implements ImageExt
         unbinder = ButterKnife.bind(this);
 
         mContext = this;
-        MyApp.getInstance().addTask(this);
+        MyAppLike.getInstance().addTask(this);
         mSavedInstanceState = savedInstanceState;
         initInject();
         initEventAndData();
-        if (isShowStatusBarColor)
-            StatusBarUtil.darkModeForBase(this, getResources().getColor(R.color.colorPrimary), DEFALUT_STATUS_BAR_ALPHA);
+        initStatusBar();
+    }
+
+    /**
+     * 初始化状态栏
+     */
+    private void initStatusBar()
+    {
+        immersionBar = ImmersionBar.with(this);
+        if (showStatusBar)
+            immersionBar.statusBarColor(mStatusBarColor)
+                    .statusBarAlpha(mStatusBarAlpha)
+                    .statusBarDarkFont(isDarkFont)
+                    .flymeOSStatusBarFontColor(isDarkFont ? FLYME_STATUSBAR_FONT_COLOR : R.color.white)
+                    .fitsSystemWindows(true)
+                    .init();
+        else
+            immersionBar
+                    .statusBarDarkFont(isDarkFont)
+                    .flymeOSStatusBarFontColor(isDarkFont ? FLYME_STATUSBAR_FONT_COLOR : R.color.white)
+                    .init();
     }
 
     /**
      * 设置是否显示沉浸式状态栏
      */
-    public void setShowStatusBarColor(boolean flag)
+    public void showStatusBar(boolean flag)
     {
-        this.isShowStatusBarColor = flag;
+        this.showStatusBar = flag;
+    }
+
+    /**
+     * 设置状态栏颜色
+     */
+    public void setStatusBarColor(int color)
+    {
+        this.mStatusBarColor = color;
+    }
+
+    /**
+     * 设置状态栏文字颜色
+     *
+     * @param flag true 黑色 false 白色
+     */
+    public void setStatusBarDarkFont(boolean flag)
+    {
+        this.isDarkFont = flag;
+    }
+
+    /**
+     * 设置状态栏透明度
+     */
+    public void setStatusBarAlpha(float alpha)
+    {
+        this.mStatusBarAlpha = alpha;
     }
 
     @Override
@@ -200,7 +252,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ImageExt
     protected void onResume()
     {
         super.onResume();
-        if (MyApp.width == 0)
+        if (MyAppLike.width == 0)
             ViewUtil.setDensityWH(this);
     }
 
@@ -211,6 +263,8 @@ public abstract class BaseActivity extends AppCompatActivity implements ImageExt
         super.onDestroy();
         if (unbinder != null)
             unbinder.unbind();
-        MyApp.getInstance().removeTask(this);
+        if (immersionBar != null)
+            immersionBar.destroy();
+        MyAppLike.getInstance().removeTask(this);
     }
 }

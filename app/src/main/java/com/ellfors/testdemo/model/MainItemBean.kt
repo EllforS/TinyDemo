@@ -6,6 +6,8 @@ class MainItemBean(val id: ID, val text: String)
     {
         DOUBLE_SLIDE,
         RIGHT_GRID,
-        REFRESH
+        REFRESH,
+        STATUS_BAR,
+        TINKER
     }
 }
