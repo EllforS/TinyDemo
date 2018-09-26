@@ -431,14 +431,6 @@ public class ViewUtil
     }
 
     /**
-     * 获取App安装地址
-     */
-    public static String getMyAppPath()
-    {
-        return Environment.getExternalStorageDirectory() + "/Download/MyTinkerApp.apk";
-    }
-
-    /**
      * 验证网络状态 0 存在wifi网络， 1 存在2/3G网络，2无网络连接
      */
     @SuppressLint("MissingPermission")

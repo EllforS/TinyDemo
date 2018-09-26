@@ -70,7 +70,7 @@ class MainActivity : BaseActivity()
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.RIGHT_GRID, "从右至左GridLayoutManager")))
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.REFRESH, "刷新")))
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.STATUS_BAR, "状态栏")))
-        list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.TINKER, "热修复")))
+        list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.TINKER, "Tinker热修复")))
         return list
     }
 

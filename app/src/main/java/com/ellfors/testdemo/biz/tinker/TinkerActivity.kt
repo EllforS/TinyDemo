@@ -1,12 +1,12 @@
 package com.ellfors.testdemo.biz.tinker
 
 import android.content.Intent
+import android.os.Environment
 import android.widget.Button
 import android.widget.TextView
 import butterknife.BindView
 import com.ellfors.testdemo.R
 import com.ellfors.testdemo.base.BaseActivity
-import com.ellfors.testdemo.util.ViewUtil
 import com.tencent.tinker.lib.tinker.TinkerInstaller
 
 /**
@@ -63,14 +63,23 @@ class TinkerActivity : BaseActivity()
          *      2、点击signing 配置好你的jks文件(alias,password等等)
          *      3、回到buildTypes，在SignConfig中配置刚才写好的signing文件
          * 五、每次要以正式包为基包，增量更新的包不好使！！！！！
+         * 六、isProtectedApp 是否支持加固，为true则只支持加固应用
          */
 
-        mText.text = "第二次修复"
+        mText.text = "修复后的文字"
 
         mBtn.setOnClickListener {
             //安装修复的方法
-            TinkerInstaller.onReceiveUpgradePatch(applicationContext, ViewUtil.getMyAppPath())
+            TinkerInstaller.onReceiveUpgradePatch(applicationContext, getAppPath())
         }
+    }
+
+    /**
+     * 安装地址
+     */
+    private fun getAppPath(): String
+    {
+        return Environment.getExternalStorageDirectory().toString() + "/Download/TinkerTest.apk"
     }
 
 }
