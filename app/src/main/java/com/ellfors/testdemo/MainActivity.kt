@@ -31,17 +31,7 @@ class MainActivity : BaseActivity()
         PermissionManager(this@MainActivity)
                 .addRationale()
                 .addPermission(permissions)
-                .addListener(
-                        object : PermissionManager.OnPermissionListener
-                        {
-                            override fun onSuccess(permissions: MutableList<String>?)
-                            {
-                            }
-
-                            override fun onFailed(permissions: MutableList<String>?)
-                            {
-                            }
-                        }, true)
+                .addListener(null)
     }
 
     private fun initRecyclerView()
