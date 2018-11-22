@@ -3,6 +3,7 @@ package com.ellfors.testdemo
 import android.support.v7.widget.LinearLayoutManager
 import com.ellfors.testdemo.base.BaseActivity
 import com.ellfors.testdemo.base.recyclerview.BaseRecyclerData
+import com.ellfors.testdemo.biz.edittext.EditTextActivity
 import com.ellfors.testdemo.biz.medal.DoubleSlideActivity
 import com.ellfors.testdemo.biz.refresh.RefreshActivity
 import com.ellfors.testdemo.biz.right_grid.RightGridActivity
@@ -49,6 +50,7 @@ class MainActivity : BaseActivity()
                 MainItemBean.ID.REFRESH -> RefreshActivity.start(this@MainActivity)
                 MainItemBean.ID.STATUS_BAR -> StatusBarActivity.start(this@MainActivity)
                 MainItemBean.ID.TINKER -> TinkerActivity.start(this@MainActivity)
+                MainItemBean.ID.EDIT_TEXT -> EditTextActivity.start(this@MainActivity)
             }
         }
     }
@@ -61,6 +63,7 @@ class MainActivity : BaseActivity()
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.REFRESH, "刷新")))
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.STATUS_BAR, "状态栏")))
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.TINKER, "Tinker热修复")))
+        list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.EDIT_TEXT, "特殊输入框")))
         return list
     }
 

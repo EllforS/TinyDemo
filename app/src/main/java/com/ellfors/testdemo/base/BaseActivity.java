@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.ellfors.testdemo.R;
 import com.ellfors.testdemo.app.MyAppLike;
@@ -118,6 +119,14 @@ public abstract class BaseActivity extends AppCompatActivity implements ImageExt
             outOverridePendingTransition(this);
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * Toast提示
+     */
+    public void showToast(String msg)
+    {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**

@@ -8,6 +8,7 @@ class MainItemBean(val id: ID, val text: String)
         RIGHT_GRID,
         REFRESH,
         STATUS_BAR,
-        TINKER
+        TINKER,
+        EDIT_TEXT
     }
 }
