@@ -3,6 +3,7 @@ package com.ellfors.testdemo
 import android.support.v7.widget.LinearLayoutManager
 import com.ellfors.testdemo.base.BaseActivity
 import com.ellfors.testdemo.base.recyclerview.BaseRecyclerData
+import com.ellfors.testdemo.biz.blur.BlurActivity
 import com.ellfors.testdemo.biz.edittext.EditTextActivity
 import com.ellfors.testdemo.biz.medal.DoubleSlideActivity
 import com.ellfors.testdemo.biz.refresh.RefreshActivity
@@ -17,7 +18,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity()
 {
-    private val permissions = arrayOf(Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE, Permission.READ_PHONE_STATE, Permission.CALL_PHONE, Permission.CAMERA, Permission.ACCESS_COARSE_LOCATION, Permission.ACCESS_FINE_LOCATION)
+    private val permissions = arrayOf(
+            Permission.WRITE_EXTERNAL_STORAGE,
+            Permission.READ_EXTERNAL_STORAGE,
+            Permission.READ_PHONE_STATE,
+            Permission.CALL_PHONE,
+            Permission.CAMERA,
+            Permission.ACCESS_COARSE_LOCATION,
+            Permission.ACCESS_FINE_LOCATION)
 
     override fun getLayout(): Int
     {
@@ -28,7 +36,6 @@ class MainActivity : BaseActivity()
     {
         ViewUtil.setDensityWH(this)
         initRecyclerView()
-
         PermissionManager(this@MainActivity)
                 .addRationale()
                 .addPermission(permissions)
@@ -51,6 +58,7 @@ class MainActivity : BaseActivity()
                 MainItemBean.ID.STATUS_BAR -> StatusBarActivity.start(this@MainActivity)
                 MainItemBean.ID.TINKER -> TinkerActivity.start(this@MainActivity)
                 MainItemBean.ID.EDIT_TEXT -> EditTextActivity.start(this@MainActivity)
+                MainItemBean.ID.BLUR -> BlurActivity.start(this@MainActivity)
             }
         }
     }
@@ -64,6 +72,7 @@ class MainActivity : BaseActivity()
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.STATUS_BAR, "状态栏")))
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.TINKER, "Tinker热修复")))
         list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.EDIT_TEXT, "特殊输入框")))
+        list.add(BaseRecyclerData(MainItemBean(MainItemBean.ID.BLUR, "高斯模糊")))
         return list
     }
 

@@ -56,6 +56,8 @@
 
         <activity android:name=".biz.edittext.EditTextActivity" />
 
+        <activity android:name=".biz.blur.BlurActivity" />
+
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ class MainItemBean(val id: ID, val text: String)
         REFRESH,
         STATUS_BAR,
         TINKER,
-        EDIT_TEXT
+        EDIT_TEXT,
+        BLUR
     }
 }
