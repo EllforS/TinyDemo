@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager
 import android.widget.RelativeLayout
 import butterknife.BindView
 import com.ellfors.testdemo.R
-import com.ellfors.testdemo.app.MyApp
+import com.ellfors.testdemo.app.MyAppLike
 import com.ellfors.testdemo.base.BaseActivity
 import com.ellfors.testdemo.biz.medal.adapter.DSVpAdapter
 import com.ellfors.testdemo.event.DSTitleSelected
@@ -73,7 +73,7 @@ class DoubleSlideActivity : BaseActivity()
 
                     override fun onPageSelected(position: Int)
                     {
-                        MyApp.eventPost(DSTitleSelected(position))
+                        MyAppLike.eventPost(DSTitleSelected(position))
                     }
                 })
         //触摸监听

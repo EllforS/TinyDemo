@@ -5,9 +5,12 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="tra_black_10">#1A000000</color>
+    <color name="tra_black_20">#33000000</color>
 
     <color name="transparent">#0000</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="color_333333">#333333</color>
+    <color name="common_bg_color">#DDDDDD</color>
+    <color name="color_ff6633">#ff6633</color>
 </resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <com.ellfors.testdemo.widget.SeparatedEditText
+        android:id="@+id/et_solid"
+        android:layout_width="151dp"
+        android:layout_height="31dp"
+        android:inputType="number"
+        android:textSize="17dp"
+        app:blockColor="@color/colorAccent"
+        app:blockSpacing="9dp"
+        app:borderColor="@color/color_333333"
+        app:borderWidth="1px"
+        app:corner="5dp"
+        app:cursorColor="@color/color_ff6633"
+        app:cursorDuration="1000"
+        app:cursorWidth="1dp"
+        app:maxLength="4"
+        app:separateType="@integer/type_stroke"
+        app:showCursor="false"
+        app:textColor="@color/color_333333" />
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="touch me" />
+
+</LinearLayout>

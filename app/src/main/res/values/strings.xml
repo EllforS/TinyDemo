@@ -2,4 +2,30 @@
     <string name="app_name">Test_Demo</string>
 
     <string name="overridepending_transition_duration">200</string>
+
+    <string name="refresh_header_pulling">下拉刷新</string>
+    <string name="refresh_header_refreshing">正在刷新</string>
+    <string name="refresh_header_loading">正在刷新</string>
+    <string name="refresh_header_release">放开刷新</string>
+    <string name="refresh_header_finish">刷新完成</string>
+    <string name="refresh_header_failed">刷新失败</string>
+    <string name="refresh_header_update">上次更新 M-d HH:mm</string>
+    <string name="refresh_header_secondary">释放进入二楼</string>
+
+    <string name="refresh_footer_pulling">上拉加载</string>
+    <string name="refresh_footer_release">松开加载</string>
+    <string name="refresh_footer_loading">正在加载</string>
+    <string name="refresh_footer_refreshing">正在加载</string>
+    <string name="refresh_footer_finish">加载完成</string>
+    <string name="refresh_footer_failed">加载失败</string>
+    <string name="refresh_footer_nothing">没有更多数据了</string>
+
+    <!-- PermissionDialog -->
+    <string name="permission_dialog_title">提示</string>
+    <string name="permission_dialog_rationale">允许以下权限以便程序继续执行：\n\n%1$s</string>
+    <string name="permission_always_failed_message">我们需要以下权限，请在设置中为我们开启：\n\n%1$s</string>
+    <string name="permission_dialog_resume">继续</string>
+    <string name="permission_dialog_cancel">取消</string>
+    <string name="permission_dialog_no">不</string>
+    <string name="setting">设置</string>
 </resources>

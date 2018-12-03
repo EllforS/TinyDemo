@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+//apply tinker插件
+apply plugin: 'com.tencent.tinker.patch'
+
 android {
     //noinspection GradleCompatible
     compileSdkVersion 27
@@ -15,12 +18,49 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        //支持分包
+        multiDexEnabled true
+        //使AS 3.0+ 支持Tinker
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
+
+    //签名配置
+    signingConfigs {
+        release {
+            storeFile file('TestKey.jks')
+            storePassword '123123'
+            keyAlias 'Test'
+            keyPassword '123123'
+        }
+        debug {
+            storeFile file('TestKey.jks')
+            storePassword STORE_PASSWORD
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            buildConfigField "boolean", "LOG_DEBUG", "false" // 不显示Log
+            minifyEnabled false//混淆
+            shrinkResources false// 移除无用的resource文件
+            zipAlignEnabled false//Zipalign优化
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true" // 显示Log
+            minifyEnabled false//混淆
+            shrinkResources false// 移除无用的resource文件
+            zipAlignEnabled false//Zipalign优化
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    //recommend
+    dexOptions {
+        jumboMode = true
     }
 }
 
@@ -29,14 +69,14 @@ kapt {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //support
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
     //kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.41"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71'
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     kapt 'com.github.bumptech.glide:compiler:4.7.1'
@@ -45,8 +85,146 @@ dependencies {
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     //EventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
+    //分包
+    implementation 'com.android.support:multidex:1.0.3'
+    //SmartRefreshLayout
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    //ImmersionBar
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta01'
+    //StatusBarUtil
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    //AndPermission
+    implementation 'com.yanzhenjie:permission:2.0.0-rc3'
+    //可选，用于生成application类
+    compileOnly "com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}"
+    //tinker的核心库
+    implementation "com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}"
 }
 
 repositories {
     mavenCentral()
+}
+
+/**
+ * 下方为Tinker热修复配置
+ */
+def gitSha() {
+    try {
+        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
+        if (gitRev == null) {
+            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+        }
+        return gitRev
+    } catch (Exception e) {
+        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+    }
+}
+
+def bakPath = file("${buildDir}/bakApk/")
+
+ext {
+    //是否开启Tinker
+    tinkerEnabled = true
+    tinkerOldApkPath = "${bakPath}/app-release-0926-11-53-00.apk"
+    tinkerApplyResourcePath = "${bakPath}/app-release-0926-11-53-00-R.txt"
+}
+
+def getOldApkPath() {
+    return hasProperty("OLD_APK") ? OLD_APK : ext.tinkerOldApkPath
+}
+
+def getApplyResourceMappingPath() {
+    return hasProperty("APPLY_RESOURCE") ? APPLY_RESOURCE : ext.tinkerApplyResourcePath
+}
+
+def getTinkerIdValue() {
+    return hasProperty("TINKER_ID") ? TINKER_ID : gitSha()
+}
+
+def buildWithTinker() {
+    return hasProperty("TINKER_ENABLE") ? Boolean.parseBoolean(TINKER_ENABLE) : ext.tinkerEnabled
+}
+
+if (buildWithTinker()) {
+    apply plugin: 'com.tencent.tinker.patch'
+
+    tinkerPatch {
+        oldApk = getOldApkPath()
+        ignoreWarning = false
+        useSign = true
+        tinkerEnable = buildWithTinker()
+        buildConfig {
+            applyResourceMapping = getApplyResourceMappingPath()
+            tinkerId = getTinkerIdValue()
+            keepDexApply = false
+            isProtectedApp = false           //是否支持加固
+            supportHotplugComponent = true
+        }
+
+        dex {
+            dexMode = "jar"
+            pattern = ["classes*.dex",
+                       "assets/secondary-dex-?.jar"]
+            loader = [
+                    "tinker.sample.android.app.BaseBuildInfo",
+            ]
+        }
+
+        lib {
+            pattern = ["lib/*/*.so"]
+        }
+
+        res {
+            pattern = ["res/*", "assets/*", "resources.arsc", "AndroidManifest.xml"]
+            ignoreChange = ["assets/sample_meta.txt"]
+            largeModSize = 100
+        }
+
+        sevenZip {
+            zipArtifact = "com.tencent.mm:SevenZip:1.1.10"
+//        path = "/usr/local/bin/7za"
+        }
+    }
+
+    List<String> flavors = new ArrayList<>();
+    project.android.productFlavors.each { flavor ->
+        flavors.add(flavor.name)
+    }
+    boolean hasFlavors = flavors.size() > 0
+    def date = new Date().format("MMdd-HH-mm-ss")
+
+    android.applicationVariants.all { variant ->
+        def taskName = variant.name
+
+        tasks.all {
+            if ("assemble${taskName.capitalize()}".equalsIgnoreCase(it.name)) {
+
+                it.doLast {
+                    copy {
+                        def fileNamePrefix = "${project.name}-${variant.baseName}"
+                        def newFileNamePrefix = hasFlavors ? "${fileNamePrefix}" : "${fileNamePrefix}-${date}"
+
+                        def destPath = hasFlavors ? file("${bakPath}/${project.name}-${date}/${variant.flavorName}") : bakPath
+                        from variant.outputs.first().outputFile
+                        into destPath
+                        rename { String fileName ->
+                            fileName.replace("${fileNamePrefix}.apk", "${newFileNamePrefix}.apk")
+                        }
+
+                        from "${buildDir}/outputs/mapping/${variant.dirName}/mapping.txt"
+                        into destPath
+                        rename { String fileName ->
+                            fileName.replace("mapping.txt", "${newFileNamePrefix}-mapping.txt")
+                        }
+
+                        from "${buildDir}/intermediates/symbols/${variant.dirName}/R.txt"
+                        into destPath
+                        rename { String fileName ->
+                            fileName.replace("R.txt", "${newFileNamePrefix}-R.txt")
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
