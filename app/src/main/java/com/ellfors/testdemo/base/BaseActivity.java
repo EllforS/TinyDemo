@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseActivity extends AppCompatActivity implements ImageExt, ValueExt
+public abstract class BaseActivity extends BaseEmptyActivity implements ImageExt, ValueExt
 {
     public static final int LAYOUT_ID_NOT_FOUND = 0;
     private static final int DEFAULT_STATUSBAR_COLOR = R.color.colorPrimary;
@@ -266,7 +265,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ImageExt
         if (MyAppLike.width == 0)
             ViewUtil.setDensityWH(this);
     }
-
 
     @Override
     protected void onDestroy()
