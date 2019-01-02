@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <TextView
+        android:id="@+id/tv_bg_test_1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="#be664a"
+        app:bl_corners_radius="20dp"
+        app:bl_pressed_drawable="#914b34"
+        app:bl_ripple_color="#f9a02c"
+        app:bl_ripple_enable="true"
+        app:bl_stroke_color="#047e04"
+        app:bl_stroke_width="2dp"
+        app:bl_unPressed_drawable="#be664a" />
+
+</LinearLayout>

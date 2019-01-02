@@ -36,6 +36,17 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <!-- 适配7.0打开文件 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.ellfors.testdemo.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,8 +54,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".biz.medal.DoubleSlideActivity" />
 
         <activity android:name=".biz.right_grid.RightGridActivity" />
 
@@ -57,6 +66,12 @@
         <activity android:name=".biz.edittext.EditTextActivity" />
 
         <activity android:name=".biz.blur.BlurActivity" />
+
+        <activity android:name=".biz.yspay.YSPayActivity" />
+
+        <activity android:name=".biz.build.BuildActivity" />
+
+        <activity android:name=".biz.scratch.ScratchActivity" />
 
     </application>
 

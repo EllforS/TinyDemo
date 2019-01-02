@@ -16,6 +16,7 @@ import com.ellfors.testdemo.ext.ImageExt;
 import com.ellfors.testdemo.ext.ValueExt;
 import com.ellfors.testdemo.util.ViewUtil;
 import com.gyf.barlibrary.ImmersionBar;
+import com.noober.background.BackgroundLibrary;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ImageExt
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        BackgroundLibrary.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         unbinder = ButterKnife.bind(this);
