@@ -13,6 +13,7 @@ import com.ellfors.testdemo.R;
 import com.ellfors.testdemo.app.MyAppLike;
 import com.ellfors.testdemo.ext.ImageExt;
 import com.ellfors.testdemo.ext.ValueExt;
+import com.ellfors.testdemo.util.ScreenUtils;
 import com.ellfors.testdemo.util.ViewUtil;
 import com.gyf.barlibrary.ImmersionBar;
 import com.noober.background.BackgroundLibrary;
@@ -45,6 +46,7 @@ public abstract class BaseActivity extends BaseEmptyActivity implements ImageExt
     protected void onCreate(Bundle savedInstanceState)
     {
         BackgroundLibrary.inject(this);
+        ScreenUtils.setCustomDensity(this, MyAppLike.getApp());
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         unbinder = ButterKnife.bind(this);
