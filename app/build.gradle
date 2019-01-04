@@ -104,6 +104,8 @@ dependencies {
     implementation "com.noober.background:core:1.3.6"
     //刮奖控件
     implementation "com.clock.scratch:Scratch:1.0.0"
+    //侧滑返回
+    implementation "me.imid.swipebacklayout.lib:library:1.3.0"
 }
 
 repositories {

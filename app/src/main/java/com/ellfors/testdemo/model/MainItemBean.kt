@@ -12,6 +12,7 @@ class MainItemBean(val id: ID, val text: String)
         BLUR,
         YSPAY,
         BUILD,
-        SCRATCH
+        SCRATCH,
+        SWIPE_BACK
     }
 }

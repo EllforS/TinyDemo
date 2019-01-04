@@ -10,6 +10,7 @@ import com.ellfors.testdemo.biz.refresh.RefreshActivity
 import com.ellfors.testdemo.biz.right_grid.RightGridActivity
 import com.ellfors.testdemo.biz.scratch.ScratchActivity
 import com.ellfors.testdemo.biz.statusbar.StatusBarActivity
+import com.ellfors.testdemo.biz.swipeback.TestSwipeActivity
 import com.ellfors.testdemo.biz.tinker.TinkerActivity
 import com.ellfors.testdemo.biz.yspay.YSPayActivity
 import com.ellfors.testdemo.model.MainItemBean
@@ -38,7 +39,8 @@ class MainActivity : BaseActivity()
             MainItemBean(MainItemBean.ID.BLUR, "高斯模糊"),
             MainItemBean(MainItemBean.ID.YSPAY, "测试公司支付"),
             MainItemBean(MainItemBean.ID.BUILD, "测试建造者模式"),
-            MainItemBean(MainItemBean.ID.SCRATCH, "刮奖控件")
+            MainItemBean(MainItemBean.ID.SCRATCH, "刮奖控件"),
+            MainItemBean(MainItemBean.ID.SWIPE_BACK, "侧滑返回")
     )
 
     override fun getLayout(): Int
@@ -75,6 +77,7 @@ class MainActivity : BaseActivity()
                 MainItemBean.ID.YSPAY -> YSPayActivity.start(this@MainActivity)
                 MainItemBean.ID.BUILD -> BuildActivity.start(this@MainActivity)
                 MainItemBean.ID.SCRATCH -> ScratchActivity.start(this@MainActivity)
+                MainItemBean.ID.SWIPE_BACK -> TestSwipeActivity.start(this@MainActivity)
             }
         }
     }

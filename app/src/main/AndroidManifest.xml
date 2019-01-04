@@ -73,6 +73,8 @@
 
         <activity android:name=".biz.scratch.ScratchActivity" />
 
+        <activity android:name=".biz.swipeback.TestSwipeActivity" />
+
     </application>
 
 </manifest>
