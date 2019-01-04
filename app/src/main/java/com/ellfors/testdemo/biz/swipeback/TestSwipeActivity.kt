@@ -68,6 +68,12 @@ class TestSwipeActivity : SwipeBackActivity()
                         Log.e("AAA", "滚动阙值")
                     }
                 })
+        //测试bean对象数值监听
+        val bean = TestBean()
+        bean.userName = "111"
+        bean.userName = "222"
+        bean.userName = "666"
+        Log.d("AAA", "userName === ${bean.userName}")
     }
 
 }
