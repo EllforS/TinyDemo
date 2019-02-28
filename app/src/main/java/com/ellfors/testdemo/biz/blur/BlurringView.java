@@ -19,6 +19,20 @@ import com.ellfors.testdemo.util.DensityUtil;
 
 public class BlurringView extends View
 {
+    private int mVagueHeight;
+
+    private int mDownsampleFactor;
+    private int mOverlayColor;
+
+    private View mBlurredView;
+    private int mBlurredViewWidth, mBlurredViewHeight;
+
+    private boolean mDownsampleFactorChanged;
+    private Bitmap mBitmapToBlur, mBlurredBitmap;
+    private Canvas mBlurringCanvas;
+    private RenderScript mRenderScript;
+    private ScriptIntrinsicBlur mBlurScript;
+    private Allocation mBlurInput, mBlurOutput;
 
     public BlurringView(Context context)
     {
@@ -36,14 +50,12 @@ public class BlurringView extends View
 
         initializeRenderScript(context);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PxBlurringView);
-        setBlurRadius(a.getInt(R.styleable.PxBlurringView_blurRadius, defaultBlurRadius));
-        setDownsampleFactor(a.getInt(R.styleable.PxBlurringView_downsampleFactor, defaultDownsampleFactor));
-        setOverlayColor(a.getColor(R.styleable.PxBlurringView_overlayColor, defaultOverlayColor));
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BlurringView);
+        setBlurRadius(a.getInt(R.styleable.BlurringView_blurRadius, defaultBlurRadius));
+        setDownsampleFactor(a.getInt(R.styleable.BlurringView_downsampleFactor, defaultDownsampleFactor));
+        setOverlayColor(a.getColor(R.styleable.BlurringView_overlayColor, defaultOverlayColor));
         a.recycle();
     }
-
-    private int mVagueHeight;
 
     /**
      * @param blurredView 屏幕跟布局
@@ -53,6 +65,30 @@ public class BlurringView extends View
     {
         mBlurredView = blurredView;
         mVagueHeight = vagueHeight;
+    }
+
+    public void setBlurRadius(int radius)
+    {
+        mBlurScript.setRadius(radius);
+    }
+
+    public void setDownsampleFactor(int factor)
+    {
+        if (factor <= 0)
+        {
+            throw new IllegalArgumentException("Downsample factor must be greater than 0.");
+        }
+
+        if (mDownsampleFactor != factor)
+        {
+            mDownsampleFactor = factor;
+            mDownsampleFactorChanged = true;
+        }
+    }
+
+    public void setOverlayColor(int color)
+    {
+        mOverlayColor = color;
     }
 
     @Override
@@ -91,30 +127,6 @@ public class BlurringView extends View
             }
             canvas.drawColor(mOverlayColor);
         }
-    }
-
-    public void setBlurRadius(int radius)
-    {
-        mBlurScript.setRadius(radius);
-    }
-
-    public void setDownsampleFactor(int factor)
-    {
-        if (factor <= 0)
-        {
-            throw new IllegalArgumentException("Downsample factor must be greater than 0.");
-        }
-
-        if (mDownsampleFactor != factor)
-        {
-            mDownsampleFactor = factor;
-            mDownsampleFactorChanged = true;
-        }
-    }
-
-    public void setOverlayColor(int color)
-    {
-        mOverlayColor = color;
     }
 
     private void initializeRenderScript(Context context)
@@ -244,17 +256,4 @@ public class BlurringView extends View
             mRenderScript.destroy();
         }
     }
-
-    private int mDownsampleFactor;
-    private int mOverlayColor;
-
-    private View mBlurredView;
-    private int mBlurredViewWidth, mBlurredViewHeight;
-
-    private boolean mDownsampleFactorChanged;
-    private Bitmap mBitmapToBlur, mBlurredBitmap;
-    private Canvas mBlurringCanvas;
-    private RenderScript mRenderScript;
-    private ScriptIntrinsicBlur mBlurScript;
-    private Allocation mBlurInput, mBlurOutput;
 }

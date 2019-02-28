@@ -26,7 +26,7 @@
     <integer name="type_underline">3</integer>
     <integer name="type_stroke">4</integer>
     <!-- 高斯模糊 -->
-    <declare-styleable name="PxBlurringView">
+    <declare-styleable name="BlurringView">
         <attr name="blurRadius" format="integer" />
         <attr name="downsampleFactor" format="integer" />
         <attr name="overlayColor" format="color" />
