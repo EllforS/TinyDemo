@@ -71,9 +71,11 @@
 
         <activity android:name=".biz.build.BuildActivity" />
 
-        <activity android:name=".biz.scratch.ScratchActivity" />
-
         <activity android:name=".biz.swipeback.TestSwipeActivity" />
+
+        <activity android:name=".biz.navigation.NavigationAcitvity" />
+
+        <activity android:name=".biz.drawer.DrawerActivity" />
 
     </application>
 

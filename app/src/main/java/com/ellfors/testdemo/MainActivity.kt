@@ -5,7 +5,9 @@ import com.ellfors.testdemo.base.BaseActivity
 import com.ellfors.testdemo.base.recyclerview.BaseRecyclerData
 import com.ellfors.testdemo.biz.blur.BlurActivity
 import com.ellfors.testdemo.biz.build.BuildActivity
+import com.ellfors.testdemo.biz.drawer.DrawerActivity
 import com.ellfors.testdemo.biz.edittext.EditTextActivity
+import com.ellfors.testdemo.biz.navigation.NavigationAcitvity
 import com.ellfors.testdemo.biz.refresh.RefreshActivity
 import com.ellfors.testdemo.biz.right_grid.RightGridActivity
 import com.ellfors.testdemo.biz.statusbar.StatusBarActivity
@@ -38,7 +40,9 @@ class MainActivity : BaseActivity()
             MainItemBean(MainItemBean.ID.BLUR, "高斯模糊"),
             MainItemBean(MainItemBean.ID.YSPAY, "测试公司支付"),
             MainItemBean(MainItemBean.ID.BUILD, "测试建造者模式"),
-            MainItemBean(MainItemBean.ID.SWIPE_BACK, "侧滑返回")
+            MainItemBean(MainItemBean.ID.SWIPE_BACK, "侧滑返回"),
+            MainItemBean(MainItemBean.ID.NAVIGATION, "调起导航"),
+            MainItemBean(MainItemBean.ID.DRAWER, "侧滑")
     )
 
     override fun getLayout(): Int
@@ -75,6 +79,8 @@ class MainActivity : BaseActivity()
                 MainItemBean.ID.YSPAY -> YSPayActivity.start(this@MainActivity)
                 MainItemBean.ID.BUILD -> BuildActivity.start(this@MainActivity)
                 MainItemBean.ID.SWIPE_BACK -> TestSwipeActivity.start(this@MainActivity)
+                MainItemBean.ID.NAVIGATION -> NavigationAcitvity.start(this@MainActivity)
+                MainItemBean.ID.DRAWER -> DrawerActivity.start(this@MainActivity)
             }
         }
     }

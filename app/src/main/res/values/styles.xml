@@ -6,4 +6,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="choose_select_dialog_style" parent="@android:style/Theme.DeviceDefault.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@color/transparent</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="choose_select_dialog_anim" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter_bottom</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_exit_bottom</item>
+    </style>
+
 </resources>

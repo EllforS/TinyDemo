@@ -12,6 +12,8 @@ class MainItemBean(val id: ID, val text: String)
         BLUR,
         YSPAY,
         BUILD,
-        SWIPE_BACK
+        SWIPE_BACK,
+        NAVIGATION,
+        DRAWER
     }
 }
