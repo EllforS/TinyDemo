@@ -4,17 +4,19 @@ package com.ellfors.testdemo.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.URLUtil;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 导航工具类
+ * (以火星坐标系为准)
  */
 public class NavigationUtil
 {
@@ -76,7 +78,7 @@ public class NavigationUtil
     {
         try
         {
-            if (isInstallPackage(GD_PACKAGE))
+            if (isInstallPackage(context, GD_PACKAGE))
             {
                 StringBuilder loc = new StringBuilder();
                 loc.append("amapuri://route/plan");
@@ -128,7 +130,7 @@ public class NavigationUtil
         double latEnd = gaoDeToBaidu(lon, lat)[1];
         try
         {
-            if (isInstallPackage(BD_PACKAGE))
+            if (isInstallPackage(context, BD_PACKAGE))
             {
                 StringBuilder loc = new StringBuilder();
                 loc.append("baidumap://map/direction");
@@ -141,7 +143,7 @@ public class NavigationUtil
                 loc.append(describle);
                 loc.append("&mode=driving");
                 loc.append("&coord_type=bd09ll");
-                loc.append("&src=com.ellfors.testdemo");
+                loc.append("&src=com.ellfors.testdemo");//这里改包名
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setPackage(BD_PACKAGE);
                 intent.setData(Uri.parse(loc.toString()));
@@ -197,7 +199,7 @@ public class NavigationUtil
     {
         try
         {
-            if (isInstallPackage(TX_PACKAGE))
+            if (isInstallPackage(context, TX_PACKAGE))
             {
                 StringBuilder loc = new StringBuilder();
                 loc.append("qqmap://map/routeplan");
@@ -259,9 +261,22 @@ public class NavigationUtil
     /**
      * 判断手机是否有APP
      */
-    private static boolean isInstallPackage(String packageName)
+    private static boolean isInstallPackage(Context context, String packageName)
     {
-        return new File("/data/data/" + packageName).exists();
+        final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        if (pinfo != null)
+        {
+            for (int i = 0; i < pinfo.size(); i++)
+            {
+                String pn = pinfo.get(i).packageName;
+                if (pn.equals(packageName))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
