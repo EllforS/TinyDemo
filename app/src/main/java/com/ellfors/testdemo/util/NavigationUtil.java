@@ -81,17 +81,18 @@ public class NavigationUtil
             if (isInstallPackage(context, GD_PACKAGE))
             {
                 StringBuilder loc = new StringBuilder();
-                loc.append("amapuri://route/plan");
-                loc.append("?sourceApplication=");
-                loc.append("天匠工程师");
-                loc.append("&dname=");
-                loc.append(describle);
-                loc.append("&dlat=");
-                loc.append(lat);
-                loc.append("&dlon=");
-                loc.append(lon);
-                loc.append("&dev=0");
-                loc.append("&t=0");
+                loc
+                        .append("amapuri://route/plan")
+                        .append("?sourceApplication=")
+                        .append("天匠工程师")
+                        .append("&dname=")
+                        .append(describle)
+                        .append("&dlat=")
+                        .append(lat)
+                        .append("&dlon=")
+                        .append(lon)
+                        .append("&dev=0")
+                        .append("&t=0");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setPackage(GD_PACKAGE);
                 intent.setData(Uri.parse(loc.toString()));
@@ -100,14 +101,15 @@ public class NavigationUtil
             else
             {
                 StringBuilder url = new StringBuilder();
-                url.append("https://uri.amap.com/navigation");
-                url.append("?to=");
-                url.append(lon);
-                url.append(",");
-                url.append(lat);
-                url.append(",");
-                url.append(describle);
-                url.append("&mode=car&policy=0");
+                url
+                        .append("https://uri.amap.com/navigation")
+                        .append("?to=")
+                        .append(lon)
+                        .append(",")
+                        .append(lat)
+                        .append(",")
+                        .append(describle)
+                        .append("&mode=car&policy=0");
                 openUrl(context, url.toString());
             }
         }
@@ -133,17 +135,19 @@ public class NavigationUtil
             if (isInstallPackage(context, BD_PACKAGE))
             {
                 StringBuilder loc = new StringBuilder();
-                loc.append("baidumap://map/direction");
-                loc.append("?origin=我的位置");
-                loc.append("&destination=latlng:");
-                loc.append(latEnd);
-                loc.append(",");
-                loc.append(lonEnd);
-                loc.append("|name:");
-                loc.append(describle);
-                loc.append("&mode=driving");
-                loc.append("&coord_type=bd09ll");
-                loc.append("&src=com.ellfors.testdemo");//这里改包名
+                loc
+                        .append("baidumap://map/direction")
+                        .append("?origin=我的位置")
+                        .append("&destination=latlng:")
+                        .append(latEnd)
+                        .append(",")
+                        .append(lonEnd)
+                        .append("|name:")
+                        .append(describle)
+                        .append("&mode=driving")
+                        .append("&coord_type=bd09ll")
+                        .append("&src=")
+                        .append(TextUtils.isEmpty(context.getPackageName()) ? "" : context.getPackageName());
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setPackage(BD_PACKAGE);
                 intent.setData(Uri.parse(loc.toString()));
@@ -202,18 +206,19 @@ public class NavigationUtil
             if (isInstallPackage(context, TX_PACKAGE))
             {
                 StringBuilder loc = new StringBuilder();
-                loc.append("qqmap://map/routeplan");
-                loc.append("?type=drive");
-                loc.append("&from=我的位置");
-                loc.append("&fromcoord=CurrentLocation");
-                loc.append("&to=");
-                loc.append(describle);
-                loc.append("&tocoord=");
-                loc.append(lat);
-                loc.append(",");
-                loc.append(lon);
-                loc.append("&referer=");
-                loc.append(TX_KEY);
+                loc
+                        .append("qqmap://map/routeplan")
+                        .append("?type=drive")
+                        .append("&from=我的位置")
+                        .append("&fromcoord=CurrentLocation")
+                        .append("&to=")
+                        .append(describle)
+                        .append("&tocoord=")
+                        .append(lat)
+                        .append(",")
+                        .append(lon)
+                        .append("&referer=")
+                        .append(TX_KEY);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setPackage(TX_PACKAGE);
                 intent.setData(Uri.parse(loc.toString()));
@@ -222,17 +227,18 @@ public class NavigationUtil
             else
             {
                 StringBuilder url = new StringBuilder();
-                url.append("https://apis.map.qq.com/uri/v1/routeplan");
-                url.append("?type=drive");
-                url.append("&to=");
-                url.append(describle);
-                url.append("&tocoord=");
-                url.append(lat);
-                url.append(",");
-                url.append(lon);
-                url.append("&policy=2");
-                url.append("&referer=");
-                url.append(TX_KEY);
+                url
+                        .append("https://apis.map.qq.com/uri/v1/routeplan")
+                        .append("?type=drive")
+                        .append("&to=")
+                        .append(describle)
+                        .append("&tocoord=")
+                        .append(lat)
+                        .append(",")
+                        .append(lon)
+                        .append("&policy=2")
+                        .append("&referer=")
+                        .append(TX_KEY);
                 openUrl(context, url.toString());
             }
         }
