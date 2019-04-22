@@ -77,6 +77,8 @@
 
         <activity android:name=".biz.drawer.DrawerActivity" />
 
+        <activity android:name=".biz.touchlist.TouchListActivity" />
+
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import com.ellfors.testdemo.biz.right_grid.RightGridActivity
 import com.ellfors.testdemo.biz.statusbar.StatusBarActivity
 import com.ellfors.testdemo.biz.swipeback.TestSwipeActivity
 import com.ellfors.testdemo.biz.tinker.TinkerActivity
+import com.ellfors.testdemo.biz.touchlist.TouchListActivity
 import com.ellfors.testdemo.biz.yspay.YSPayActivity
 import com.ellfors.testdemo.model.MainItemBean
 import com.ellfors.testdemo.permission.PermissionManager
@@ -42,7 +43,8 @@ class MainActivity : BaseActivity()
             MainItemBean(MainItemBean.ID.BUILD, "测试建造者模式"),
             MainItemBean(MainItemBean.ID.SWIPE_BACK, "侧滑返回"),
             MainItemBean(MainItemBean.ID.NAVIGATION, "调起导航"),
-            MainItemBean(MainItemBean.ID.DRAWER, "侧滑")
+            MainItemBean(MainItemBean.ID.DRAWER, "侧滑"),
+            MainItemBean(MainItemBean.ID.TOUCH_LIST, "操作List")
     )
 
     override fun getLayout(): Int
@@ -81,6 +83,7 @@ class MainActivity : BaseActivity()
                 MainItemBean.ID.SWIPE_BACK -> TestSwipeActivity.start(this@MainActivity)
                 MainItemBean.ID.NAVIGATION -> NavigationAcitvity.start(this@MainActivity)
                 MainItemBean.ID.DRAWER -> DrawerActivity.start(this@MainActivity)
+                MainItemBean.ID.TOUCH_LIST -> TouchListActivity.start(this@MainActivity)
             }
         }
     }
