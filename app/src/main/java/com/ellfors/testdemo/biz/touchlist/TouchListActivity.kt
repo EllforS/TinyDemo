@@ -1,6 +1,7 @@
 package com.ellfors.testdemo.biz.touchlist
 
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -44,7 +45,13 @@ class TouchListActivity : BaseActivity()
         mAdapter = TouchListAdapter(this, getData())
         mRecyclerView.adapter = mAdapter
 
-        val mListener = MyItemTouchHelper(object : MyItemTouchHelper.ItemTouchMoveListener
+        val mListener = MoveItemTouchHelper()
+        val itemTouchHelper = ItemTouchHelper(mListener)
+        itemTouchHelper.attachToRecyclerView(mRecyclerView)
+
+        mListener.setIdleColor(Color.RED)
+        mListener.setDefaultColor(Color.WHITE)
+        mListener.setItemTouchMoveListener(object : MoveItemTouchHelper.ItemTouchMoveListener
         {
             override fun onItemMove(fromPosition: Int, toPosition: Int)
             {
@@ -54,13 +61,10 @@ class TouchListActivity : BaseActivity()
 
             override fun onItemMoveComplete(fromPosition: Int, toPosition: Int)
             {
-                Log.d("AAA", "from = $fromPosition，to = $toPosition")
                 //重排数据
                 list.add(toPosition, list.removeAt(fromPosition))
             }
         })
-        val itemTouchHelper = ItemTouchHelper(mListener)
-        itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 
     @OnClick(R.id.btn_toast)

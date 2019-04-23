@@ -16,24 +16,46 @@ import static android.support.v7.widget.helper.ItemTouchHelper.UP;
  * ItemDrag
  * 2019/4/22 12:23
  */
-public class MyItemTouchHelper extends ItemTouchHelper.Callback
+public class MoveItemTouchHelper extends ItemTouchHelper.Callback
 {
-    /**
-     * 拖拽时的颜色
-     */
-    private static final int IDLE_COLOR = 0xff999999;
-    /**
-     * 空闲时的颜色
-     */
-    private static final int DEFAULT_COLOR = 0xffffffff;
-
     private ItemTouchMoveListener mItemTouchMoveListener;
     private int mFromPos = -1;
     private int mTargetPos = -1;
+    private Integer idleColor;
+    private Integer defaultColor;
 
-    public MyItemTouchHelper(ItemTouchMoveListener itemTouchMoveListener)
+    public MoveItemTouchHelper()
+    {
+
+    }
+
+    public MoveItemTouchHelper(ItemTouchMoveListener itemTouchMoveListener)
     {
         mItemTouchMoveListener = itemTouchMoveListener;
+    }
+
+    /**
+     * 设置拖拽时背景颜色
+     */
+    public void setIdleColor(int idleColor)
+    {
+        this.idleColor = idleColor;
+    }
+
+    /**
+     * 设置空闲时背景颜色
+     */
+    public void setDefaultColor(int defaultColor)
+    {
+        this.defaultColor = defaultColor;
+    }
+
+    /**
+     * 设置监听
+     */
+    public void setItemTouchMoveListener(ItemTouchMoveListener itemTouchMoveListener)
+    {
+        this.mItemTouchMoveListener = itemTouchMoveListener;
     }
 
     /**
@@ -44,8 +66,6 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback
     {
         int dragFlags = 0;
         int swipeFlags = 0;
-        //监听侧滑删除
-//        int swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager)
             dragFlags = UP | DOWN | LEFT | RIGHT;
@@ -74,8 +94,7 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
     {
-        //监听侧滑1:删除数据；2：adapter.notifyItemRemove（position）
-//        mItemTouchMoveListener.onItemRemove(viewHolder.getAdapterPosition());
+
     }
 
     /**
@@ -87,7 +106,8 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback
         if (actionState != ACTION_STATE_IDLE)
         {
             //判断选择状态,改变背景颜色
-            viewHolder.itemView.setBackgroundColor(IDLE_COLOR);
+            if (idleColor != null)
+                viewHolder.itemView.setBackgroundColor(idleColor);
             //记录按下的Position
             mFromPos = viewHolder.getAdapterPosition();
         }
@@ -101,7 +121,8 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)
     {
         //重置颜色
-        viewHolder.itemView.setBackgroundColor(DEFAULT_COLOR);
+        if (defaultColor != null)
+            viewHolder.itemView.setBackgroundColor(defaultColor);
         //记录抬起时的Position
         mTargetPos = viewHolder.getAdapterPosition();
         if (mFromPos != -1 && mTargetPos != -1 && mFromPos != mTargetPos)
@@ -109,6 +130,9 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback
         super.clearView(recyclerView, viewHolder);
     }
 
+    /**
+     * 改变Item特效
+     */
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive)
     {
@@ -152,12 +176,5 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback
          * @param toPosition   到什么位置
          */
         void onItemMoveComplete(int fromPosition, int toPosition);
-
-        /**
-         * 当条目被移除的回调
-         *
-         * @param position 那一条被移除
-         */
-//        void onItemRemove(int position);
     }
 }
