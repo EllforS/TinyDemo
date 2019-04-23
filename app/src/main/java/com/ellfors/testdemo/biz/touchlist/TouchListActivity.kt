@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.util.Log
+import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnClick
 import com.ellfors.testdemo.R
@@ -20,6 +20,8 @@ class TouchListActivity : BaseActivity()
 {
     @BindView(R.id.rcv_touch)
     lateinit var mRecyclerView: RecyclerView
+    @BindView(R.id.tv_touch_value)
+    lateinit var mTextView: TextView
 
     private var mAdapter: TouchListAdapter? = null
     val list = mutableListOf<BaseRecyclerData>()
@@ -70,10 +72,12 @@ class TouchListActivity : BaseActivity()
     @OnClick(R.id.btn_toast)
     fun onClick()
     {
+        var value = ""
         for (i in 0 until list.size)
         {
-            Log.d("AAA", "value = ${list[i].data as String}")
+            value += "${list[i].data as String}_"
         }
+        mTextView.text = value
     }
 
     private fun getData(): MutableList<BaseRecyclerData>
