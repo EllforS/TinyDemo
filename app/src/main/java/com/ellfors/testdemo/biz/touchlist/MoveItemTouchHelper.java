@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+import java.util.Arrays;
+
 import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE;
 import static android.support.v7.widget.helper.ItemTouchHelper.DOWN;
 import static android.support.v7.widget.helper.ItemTouchHelper.LEFT;
@@ -23,6 +25,7 @@ public class MoveItemTouchHelper extends ItemTouchHelper.Callback
     private int mTargetPos = -1;
     private Integer idleColor;
     private Integer defaultColor;
+    private Integer[] ignores;
 
     public MoveItemTouchHelper()
     {
@@ -51,12 +54,24 @@ public class MoveItemTouchHelper extends ItemTouchHelper.Callback
     }
 
     /**
+     * 设置忽略的Type
+     */
+    public void setIgnores(Integer... ignores)
+    {
+        this.ignores = ignores;
+    }
+
+    /**
      * 设置监听
      */
     public void setItemTouchMoveListener(ItemTouchMoveListener itemTouchMoveListener)
     {
         this.mItemTouchMoveListener = itemTouchMoveListener;
     }
+
+    /*
+     ********************************** 内部方法 *************************************************
+     */
 
     /**
      * callback回调监听先调用的，用来判断是什么动作，比如判断方向（意思就是我要监听那个方向的拖到）
@@ -66,6 +81,10 @@ public class MoveItemTouchHelper extends ItemTouchHelper.Callback
     {
         int dragFlags = 0;
         int swipeFlags = 0;
+        //如果已忽略则不监听
+        if (ignores != null && ignores.length > 0 && Arrays.asList(ignores).contains(viewHolder.getItemViewType()))
+            return makeMovementFlags(dragFlags, swipeFlags);
+        //否则监听
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager)
             dragFlags = UP | DOWN | LEFT | RIGHT;

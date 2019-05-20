@@ -79,6 +79,10 @@
 
         <activity android:name=".biz.touchlist.TouchListActivity" />
 
+        <activity
+            android:name=".biz.dragphoto.DragPhotoActivity"
+            android:theme="@style/drag_photo_style" />
+
     </application>
 
 </manifest>

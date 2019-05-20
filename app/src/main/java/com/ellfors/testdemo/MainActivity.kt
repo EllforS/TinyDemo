@@ -5,6 +5,7 @@ import com.ellfors.testdemo.base.BaseActivity
 import com.ellfors.testdemo.base.recyclerview.BaseRecyclerData
 import com.ellfors.testdemo.biz.blur.BlurActivity
 import com.ellfors.testdemo.biz.build.BuildActivity
+import com.ellfors.testdemo.biz.dragphoto.DragPhotoActivity
 import com.ellfors.testdemo.biz.drawer.DrawerActivity
 import com.ellfors.testdemo.biz.edittext.EditTextActivity
 import com.ellfors.testdemo.biz.navigation.NavigationAcitvity
@@ -44,7 +45,8 @@ class MainActivity : BaseActivity()
             MainItemBean(MainItemBean.ID.SWIPE_BACK, "侧滑返回"),
             MainItemBean(MainItemBean.ID.NAVIGATION, "调起导航"),
             MainItemBean(MainItemBean.ID.DRAWER, "侧滑"),
-            MainItemBean(MainItemBean.ID.TOUCH_LIST, "操作List")
+            MainItemBean(MainItemBean.ID.TOUCH_LIST, "操作List"),
+            MainItemBean(MainItemBean.ID.DRAG_PHOTO, "图片拖拽返回")
     )
 
     override fun getLayout(): Int
@@ -84,6 +86,7 @@ class MainActivity : BaseActivity()
                 MainItemBean.ID.NAVIGATION -> NavigationAcitvity.start(this@MainActivity)
                 MainItemBean.ID.DRAWER -> DrawerActivity.start(this@MainActivity)
                 MainItemBean.ID.TOUCH_LIST -> TouchListActivity.start(this@MainActivity)
+                MainItemBean.ID.DRAG_PHOTO -> DragPhotoActivity.start(this@MainActivity)
             }
         }
     }

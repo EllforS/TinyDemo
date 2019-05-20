@@ -22,9 +22,25 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <!-- 查看大图Style -->
+    <style name="drag_photo_style" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
     <style name="choose_select_dialog_anim" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/dialog_enter_bottom</item>
-        <item name="@android:windowExitAnimation">@anim/dialog_exit_bottom</item>
+        <item name="android:windowEnterAnimation">@anim/dialog_enter_bottom</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit_bottom</item>
     </style>
 
 </resources>

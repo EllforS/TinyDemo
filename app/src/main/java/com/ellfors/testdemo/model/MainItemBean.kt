@@ -15,6 +15,7 @@ class MainItemBean(val id: ID, val text: String)
         SWIPE_BACK,
         NAVIGATION,
         DRAWER,
-        TOUCH_LIST
+        TOUCH_LIST,
+        DRAG_PHOTO
     }
 }
