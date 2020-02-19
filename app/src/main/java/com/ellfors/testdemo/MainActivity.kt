@@ -8,6 +8,7 @@ import com.ellfors.testdemo.biz.build.BuildActivity
 import com.ellfors.testdemo.biz.dragphoto.DragPhotoActivity
 import com.ellfors.testdemo.biz.drawer.DrawerActivity
 import com.ellfors.testdemo.biz.edittext.EditTextActivity
+import com.ellfors.testdemo.biz.img_progress.ImageProgressActivity
 import com.ellfors.testdemo.biz.navigation.NavigationAcitvity
 import com.ellfors.testdemo.biz.refresh.RefreshActivity
 import com.ellfors.testdemo.biz.right_grid.RightGridActivity
@@ -46,7 +47,8 @@ class MainActivity : BaseActivity()
             MainItemBean(MainItemBean.ID.NAVIGATION, "调起导航"),
             MainItemBean(MainItemBean.ID.DRAWER, "侧滑"),
             MainItemBean(MainItemBean.ID.TOUCH_LIST, "操作List"),
-            MainItemBean(MainItemBean.ID.DRAG_PHOTO, "图片拖拽返回")
+            MainItemBean(MainItemBean.ID.DRAG_PHOTO, "图片拖拽返回"),
+            MainItemBean(MainItemBean.ID.IMAGE_PROGRESS, "图片进度")
     )
 
     override fun getLayout(): Int
@@ -87,6 +89,7 @@ class MainActivity : BaseActivity()
                 MainItemBean.ID.DRAWER -> DrawerActivity.start(this@MainActivity)
                 MainItemBean.ID.TOUCH_LIST -> TouchListActivity.start(this@MainActivity)
                 MainItemBean.ID.DRAG_PHOTO -> DragPhotoActivity.start(this@MainActivity)
+                MainItemBean.ID.IMAGE_PROGRESS -> ImageProgressActivity.start(this@MainActivity)
             }
         }
     }

@@ -16,6 +16,7 @@ class MainItemBean(val id: ID, val text: String)
         NAVIGATION,
         DRAWER,
         TOUCH_LIST,
-        DRAG_PHOTO
+        DRAG_PHOTO,
+        IMAGE_PROGRESS
     }
 }

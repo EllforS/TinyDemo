@@ -47,6 +47,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!-- 自定义Glide配置 -->
+        <meta-data
+            android:name="com.ellfors.testdemo.biz.img_progress.options.MyGlideModule"
+            android:value="AppGlideModule" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -82,6 +87,8 @@
         <activity
             android:name=".biz.dragphoto.DragPhotoActivity"
             android:theme="@style/drag_photo_style" />
+
+        <activity android:name=".biz.img_progress.ImageProgressActivity" />
 
     </application>
 

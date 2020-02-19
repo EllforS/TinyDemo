@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
 import com.ellfors.testdemo.R;
+import com.ellfors.testdemo.widget.CustomRefreshLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -112,8 +113,8 @@ public class MyAppLike extends DefaultApplicationLike
                 layout.setDisableContentWhenRefresh(true);
                 layout.setDisableContentWhenLoading(true);
                 //Header、Footer高度
-                layout.setHeaderHeight(57);
-                layout.setFooterHeight(57);
+                layout.setHeaderHeight(/*57*/100);
+                layout.setFooterHeight(/*57*/100);
             }
         });
         //设置全局的Header构建器
@@ -123,14 +124,16 @@ public class MyAppLike extends DefaultApplicationLike
             @Override
             public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout)
             {
-                return new ClassicsHeader(context)
-                        .setEnableLastTime(false)
-                        .setTextSizeTitle(12)
-                        .setDrawableMarginRight(7)
-                        .setFinishDuration(0)
-                        .setAccentColor(mApp.getResources().getColor(R.color.tra_black_20))
-                        .setArrowDrawable(mApp.getResources().getDrawable(R.drawable.ptr_head_pull_ic))
-                        .setProgressDrawable(mApp.getResources().getDrawable(R.drawable.load_img_loading));
+                return new CustomRefreshLayout(context);
+
+//                return new ClassicsHeader(context)
+//                        .setEnableLastTime(false)
+//                        .setTextSizeTitle(12)
+//                        .setDrawableMarginRight(7)
+//                        .setFinishDuration(0)
+//                        .setAccentColor(mApp.getResources().getColor(R.color.tra_black_20))
+//                        .setArrowDrawable(mApp.getResources().getDrawable(R.drawable.ptr_head_pull_ic))
+//                        .setProgressDrawable(mApp.getResources().getDrawable(R.drawable.load_img_loading));
             }
         });
         //设置全局Footer构建器
